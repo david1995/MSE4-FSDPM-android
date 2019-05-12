@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">OmdbExercise</string>
+
+    <string name="favorites">Favorites</string>
+    <string name="towatch">To Watch</string>
+
+    <string name="movieYear">Released: %1$s</string>
+
+    <string name="hint_search">Search</string>
+    <string name="detailPosterDescription">Movie</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
