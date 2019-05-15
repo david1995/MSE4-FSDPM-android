@@ -34,9 +34,7 @@ class OmdbMovieProvider(movieStore : IMovieStore, val apiKey : String) : IMovieP
 
         try
         {
-            val url = URL("https://www.omdbapi.com/?s=movie&y=2018&apikey=$apiKey")
-            val readText = url.readText()
-            val movies = jacksonObjectMapper().readValue<MovieSearchResult>(readText).Search
+            val movies = OmdbMoviesLoader(apiKey).FetchMovies()
             _movieInfos = movies
             _hasFetchedMovies = true
         }

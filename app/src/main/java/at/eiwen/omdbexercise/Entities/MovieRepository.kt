@@ -2,11 +2,13 @@ package at.eiwen.omdbexercise.Entities
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import at.eiwen.omdbexercise.DataAccess.OmdbMoviesLoader
 import at.eiwen.omdbexercise.Extensions.MovieRepositoryExtensions
 import at.eiwen.omdbexercise.Models.MovieInfo
+import at.eiwen.omdbexercise.R
 import org.jetbrains.anko.doAsync
 
-class MovieRepository(application : Application)
+class MovieRepository(val application : Application)
 {
     private val _dal : IMovieDal
     private val _liveDataList : LiveData<List<Movie>>
@@ -65,7 +67,8 @@ class MovieRepository(application : Application)
     private fun Populate()
     {
         doAsync {
-            Create(movieDb.search(""))
+            val fetchedMovies = OmdbMoviesLoader(application.getString(R.string.omdbApiKey)).FetchMovies()
+            Create(fetchedMovies)
         }
     }
 }

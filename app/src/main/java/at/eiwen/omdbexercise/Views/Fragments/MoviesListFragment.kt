@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,16 +16,16 @@ import at.eiwen.omdbexercise.DataAccess.InMemoryMovieStore
 import at.eiwen.omdbexercise.DataAccess.OmdbMovieProvider
 import at.eiwen.omdbexercise.R
 import at.eiwen.omdbexercise.ViewModels.MoviesListViewModel
+import at.eiwen.omdbexercise.ViewModels.MoviesViewModel
 import kotlinx.android.synthetic.main.fragment_movies_list.*
-import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.uiThread
 
 class MoviesListFragment : Fragment()
 {
     private lateinit var _movieProvider : IMovieProvider
     private lateinit var _moviesListViewModel : MoviesListViewModel
+    private lateinit var _moviesViewModel : MoviesViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?): View?
+    override fun onCreateView(inflater: LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?) : View?
     {
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
     }
@@ -39,15 +40,10 @@ class MoviesListFragment : Fragment()
 
     fun InitializeDataSources()
     {
-        _movieProvider = OmdbMovieProvider(InMemoryMovieStore(), getString(R.string.omdbApiKey))
+        _movieProvider = OmdbMovieProvider(InMemoryMovieStore.Instance, getString(R.string.omdbApiKey))
         _moviesListViewModel = MoviesListViewModel(ArrayList(), requireContext())
-        doAsync {
-
-            var movies = _movieProvider.GetMovies()
-            uiThread {
-                _moviesListViewModel.SetItems(movies)
-            }
-        }
+        _moviesViewModel = ViewModelProviders.of(this).get(MoviesViewModel::class.java)
+        _moviesViewModel.FindAllMovies()
 
         SetupRecyclerView()
         SetupSearchListener()

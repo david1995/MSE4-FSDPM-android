@@ -4,6 +4,10 @@ import at.eiwen.omdbexercise.Models.MovieInfo
 
 class InMemoryMovieStore : IMovieStore
 {
+    companion object {
+        val Instance : InMemoryMovieStore = InMemoryMovieStore()
+    }
+
     private var _movieInfos : ArrayList<MovieInfo>
     private var _fallbackMovieInfos : ArrayList<MovieInfo> = ArrayList()
 

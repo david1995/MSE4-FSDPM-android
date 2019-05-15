@@ -8,8 +8,6 @@ import androidx.room.RoomDatabase
 @Database(entities = [Movie::class], version = 1)
 abstract class MovieDatabase : RoomDatabase()
 {
-    abstract fun GetMovieDal() : IMovieDal
-
     companion object
     {
         private var _instance : MovieDatabase? = null
@@ -27,4 +25,6 @@ abstract class MovieDatabase : RoomDatabase()
             return _instance
         }
     }
+
+    abstract fun GetMovieDal() : IMovieDal
 }
