@@ -24,7 +24,7 @@ class MoviesListFragment : Fragment()
     private lateinit var _movieProvider : IMovieProvider
     private lateinit var _moviesListViewModel : MoviesListViewModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
+    override fun onCreateView(inflater: LayoutInflater, container : ViewGroup?, savedInstanceState : Bundle?): View?
     {
         return inflater.inflate(R.layout.fragment_movies_list, container, false)
     }
@@ -79,7 +79,7 @@ class MoviesListFragment : Fragment()
         movieListRecyclerView.addItemDecoration(DividerItemDecoration(movieListRecyclerView.context, DividerItemDecoration.VERTICAL))
     }
 
-    fun FindMovie(searchTerm: String)
+    fun FindMovie(searchTerm : String)
     {
         if (searchTerm.length < 2)
         {
