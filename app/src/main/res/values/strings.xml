@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">OmdbExercise</string>
 
-    <string name="favorites">Favorites</string>
-    <string name="towatch">To Watch</string>
+    <string name="allMoviesMenuItemTitle">All movies</string>
+    <string name="favoritesMenuItemTitle">Favorites</string>
+    <string name="toWatchMenuItemTitle">To Watch</string>
 
     <string name="movieYear">Released: %1$s</string>
 

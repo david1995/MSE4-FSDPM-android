@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/miFavorites"
-          android:title="@string/favorites"
-          app:showAsAction="always"
+    <item android:id="@+id/allMoviesMenuItem"
+          android:title="@string/allMoviesMenuItemTitle"
+          app:showAsAction="ifRoom" />
+    <item android:id="@+id/favoritesMenuItem"
+          android:title="@string/favoritesMenuItemTitle"
+          app:showAsAction="ifRoom"
           android:icon="@drawable/ic_favorite_border_black_24dp" />
-    <item android:id="@+id/miToWatch"
+    <item android:id="@+id/toWatchMenuItem"
           android:icon="@drawable/ic_remove_red_eye_black_24dp"
-          android:title="@string/towatch"
-          app:showAsAction="always" />
+          android:title="@string/toWatchMenuItemTitle"
+          app:showAsAction="ifRoom" />
 </menu>
