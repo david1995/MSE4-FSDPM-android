@@ -2,6 +2,7 @@ package at.eiwen.omdbexercise.Entities
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import at.eiwen.omdbexercise.Extensions.MovieRepositoryExtensions
 import at.eiwen.omdbexercise.Models.MovieInfo
 import org.jetbrains.anko.doAsync
 
@@ -30,7 +31,7 @@ class MovieRepository(application : Application)
 
     fun Search(term: String): LiveData<List<Movie>>
     {
-        return _dal.Search(MovieUtils.queryTerm(term))
+        return _dal.Search(MovieRepositoryExtensions.GetQueryTerm(term))
     }
 
     fun GetMoviesToWatch(): LiveData<List<Movie>>
@@ -64,8 +65,6 @@ class MovieRepository(application : Application)
     private fun Populate()
     {
         doAsync {
-            val movieDb = MovieDb.instance
-            movieDb.downloadMovies()
             Create(movieDb.search(""))
         }
     }
