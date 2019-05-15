@@ -1,9 +1,9 @@
 package at.eiwen.omdbexercise.Models
 
-data class MovieCollection (
+data class MovieInfo (
     val Title: String,
     val Year: Int,
-    val imdbID: String,
     val Type: String,
+    val imdbID: String,
     val Poster: String
 )

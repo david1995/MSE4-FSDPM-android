@@ -1,14 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".MovieDetailFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="match_parent"
+<ScrollView android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+            android:fillViewport="true"
+            xmlns:android="http://schemas.android.com/apk/res/android">
 
-</FrameLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:paddingBottom="8dp"
+                  android:background="@android:color/black">
+
+        <ImageView android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:paddingTop="15dp"
+                   android:scaleType="center"
+                   android:id="@+id/detailMoviePoster"
+                   android:contentDescription="@string/movie_detail_description" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/detailMovieTitle"
+                  android:paddingTop="10dp"
+                  android:textAlignment="center"
+                  android:textSize="24sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/colorAccent" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_marginTop="8dp"
+                  android:textColor="@android:color/white"
+                  android:textSize="20sp"
+                  android:textStyle="italic"
+                  android:textAlignment="center"
+                  android:id="@+id/detailMovieYear" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorAccent"
+                  android:textSize="20sp"
+                  android:textStyle="italic"
+                  android:layout_margin="8dp"
+                  android:textAlignment="textStart"
+                  android:textAllCaps="true"
+                  android:text="@string/movie_writer_title" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/detailMovieWriter"
+                  android:textColor="@android:color/white"
+                  android:layout_margin="8dp" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:textColor="@color/colorAccent"
+                  android:textSize="20sp"
+                  android:textAllCaps="true"
+                  android:textStyle="italic"
+                  android:layout_margin="8dp"
+                  android:textAlignment="textStart"
+                  android:text="@string/movie_plot_title" />
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:id="@+id/detailMoviePlot"
+                  android:textColor="@android:color/white"
+                  android:layout_margin="8dp" />
+    </LinearLayout>
+</ScrollView>

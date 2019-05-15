@@ -1,31 +1,28 @@
-package at.eiwen.omdbexercise
+package at.eiwen.omdbexercise.Views.Fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
-import at.eiwen.omdbexercise.DataAccess.IMovieStore
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import at.eiwen.omdbexercise.DataAccess.IMovieProvider
 import at.eiwen.omdbexercise.DataAccess.InMemoryMovieStore
+import at.eiwen.omdbexercise.DataAccess.OmdbMovieProvider
+import at.eiwen.omdbexercise.R
 import at.eiwen.omdbexercise.ViewModels.MoviesListViewModel
 import kotlinx.android.synthetic.main.fragment_movies_list.*
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 
 class MoviesListFragment : Fragment()
 {
-    lateinit var _movieStore : IMovieStore
-    lateinit var _moviesListViewModel : MoviesListViewModel
-
-    override fun onActivityCreated(savedInstanceState: Bundle?)
-    {
-        super.onActivityCreated(savedInstanceState)
-    }
+    private lateinit var _movieProvider : IMovieProvider
+    private lateinit var _moviesListViewModel : MoviesListViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
     {
@@ -42,8 +39,16 @@ class MoviesListFragment : Fragment()
 
     fun InitializeDataSources()
     {
-        _movieStore = InMemoryMovieStore()
-        _moviesListViewModel = MoviesListViewModel(_movieStore, requireContext())
+        _movieProvider = OmdbMovieProvider(InMemoryMovieStore(), getString(R.string.omdbApiKey))
+        _moviesListViewModel = MoviesListViewModel(ArrayList(), requireContext())
+        doAsync {
+
+            var movies = _movieProvider.GetMovies()
+            uiThread {
+                _moviesListViewModel.SetItems(movies)
+            }
+        }
+
         SetupRecyclerView()
         SetupSearchListener()
     }
@@ -52,8 +57,8 @@ class MoviesListFragment : Fragment()
     {
         movieSearchTextBox.addTextChangedListener(object : TextWatcher
         {
-            override fun afterTextChanged(p0: Editable?) {
-                println(p0.toString())
+            override fun afterTextChanged(p0: Editable?)
+            {
                 FindMovie(p0.toString())
             }
 
@@ -70,20 +75,21 @@ class MoviesListFragment : Fragment()
     fun SetupRecyclerView()
     {
         movieListRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        movieListRecyclerView.adapter = adapter
+        movieListRecyclerView.adapter = _moviesListViewModel
         movieListRecyclerView.addItemDecoration(DividerItemDecoration(movieListRecyclerView.context, DividerItemDecoration.VERTICAL))
     }
 
     fun FindMovie(searchTerm: String)
     {
-        if (searchTerm.length <= 2)
+        if (searchTerm.length < 2)
         {
-            _moviesListViewModel.
-            adapter.filter(db.movieCollection)
+            var movies = _movieProvider.GetMovies()
+            _moviesListViewModel.SetItems(movies)
         }
         else
         {
-            adapter.filter(db.search(text));
+            var foundMovies = _movieProvider.FindMovies(searchTerm)
+            _moviesListViewModel.SetItems(foundMovies)
         }
     }
 }

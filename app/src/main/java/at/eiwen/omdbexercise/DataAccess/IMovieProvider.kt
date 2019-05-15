@@ -2,7 +2,8 @@ package at.eiwen.omdbexercise.DataAccess
 
 import at.eiwen.omdbexercise.Models.MovieInfo
 
-interface IMovieStore
+interface IMovieProvider
 {
     fun GetMovies() : List<MovieInfo>
+    fun FindMovies(searchTerm : String) : List<MovieInfo>
 }

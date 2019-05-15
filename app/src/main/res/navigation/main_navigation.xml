@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/main_navigation" app:startDestination="@id/moviesListFragment">
+    <fragment android:id="@+id/moviesListFragment" android:name="at.eiwen.omdbexercise.Views.Fragments.MoviesListFragment"
+              android:label="Movies" tools:layout="@layout/fragment_movies_list">
+        <action android:id="@+id/action_moviesListFragment_to_movieDetailFragment"
+                app:destination="@id/movieDetailFragment">
+            <argument android:defaultValue="null" android:name="title"/>
+            <argument android:defaultValue="null" android:name="year"/>
+            <argument android:defaultValue="null" android:name="poster"/>
+            <argument android:defaultValue="null" android:name="imdbId"/>
+        </action>
+    </fragment>
+    <fragment android:id="@+id/movieDetailFragment" android:name="at.eiwen.omdbexercise.Views.Fragments.MovieDetailFragment"
+              android:label="Details">
+        <action android:id="@+id/action_movieDetailFragment_to_moviePosterFragment"
+                app:destination="@id/moviePosterFragment">
+            <argument android:defaultValue="null" android:name="poster"/>
+        </action>
+        <argument android:name="title" app:argType="string" android:defaultValue="null"/>
+        <argument android:name="year" app:argType="string" android:defaultValue="null"/>
+        <argument android:name="poster" app:argType="string" android:defaultValue="null"/>
+        <argument android:name="imdbId" app:argType="string" android:defaultValue="null"/>
+    </fragment>
+    <fragment android:id="@+id/moviePosterFragment" android:name="at.eiwen.omdbexercise.Views.Fragments.MoviePosterFragment"
+              android:label="Poster" tools:layout="@layout/fragment_movie_poster">
+        <argument android:name="poster" app:argType="string"/>
+    </fragment>
+</navigation>

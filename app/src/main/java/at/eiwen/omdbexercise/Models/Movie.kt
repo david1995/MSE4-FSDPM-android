@@ -27,4 +27,3 @@ data class Movie (
     val Website: String,
     val Response: String
 )
-
