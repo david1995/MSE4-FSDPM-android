@@ -15,7 +15,6 @@ class MovieRepository(application : Application)
     {
         val db = MovieDatabase.GetInstance(application)
         _dal = db?.GetMovieDal()!!
-        Populate()
         _liveDataList = _dal.FindAll()
     }
 
@@ -60,12 +59,5 @@ class MovieRepository(application : Application)
     fun Update(movie: Movie)
     {
         _dal.Update(movie)
-    }
-
-    private fun Populate()
-    {
-        doAsync {
-            Create(movieDb.search(""))
-        }
     }
 }

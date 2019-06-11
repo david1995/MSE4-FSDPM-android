@@ -14,17 +14,18 @@ abstract class MovieDatabase : RoomDatabase()
     {
         private var _instance : MovieDatabase? = null
 
-        fun GetInstance(context : Context) : MovieDatabase?
+        fun GetInstance(context : Context) : MovieDatabase
         {
             synchronized(MovieDatabase::class)
             {
                 if (_instance == null)
                 {
-                    _instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java, "Movies.db").build()
+                    _instance = Room.databaseBuilder(context.applicationContext, MovieDatabase::class.java, "Movies.db")
+                                    .build()
                 }
             }
 
-            return _instance
+            return _instance!!
         }
     }
 }
